@@ -4,14 +4,13 @@ import com.skypro.employee.model.Employee;
 import com.skypro.employee.record.EmployeeRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
     private final Map<Integer, Employee> employees = new HashMap<>();
+    private final Map<Integer,Employee> employeesAverageSalary = new HashMap<>();
 
     public Collection<Employee> getAllEmployees() {
         return this.employees.values();
@@ -33,13 +32,34 @@ public class EmployeeService {
         return employees.values().stream().mapToInt(Employee::getSalary).sum();
     }
 
-    public int getSalaryMin() {
-        return employees.values().stream().mapToInt(Employee::getSalary).summaryStatistics().getMin();
+    public List<Employee> getSalaryMin() {
+        Comparator<Employee> comparator = Comparator.comparing( Employee :: getSalary);
+        List<Employee> minSalary = employees.values().stream()
+                .min(comparator)
+                .stream()
+                .collect(Collectors.toList());
+        return minSalary;
     }
-    public int getSalaryMax() {
-        return employees.values().stream().mapToInt(Employee::getSalary).summaryStatistics().getMax();
+    public List<Employee> getSalaryMax() {
+        Comparator<Employee> comparator = Comparator.comparing( Employee :: getSalary);
+        List<Employee> maxSalary = employees.values().stream()
+                .max(comparator)
+                .stream()
+                .collect(Collectors.toList());
+        return maxSalary;
     }
-    public double getSalaryAverage() {
-        return employees.values().stream().mapToInt(Employee::getSalary).average().getAsDouble();
+    public double getAverageSum () {
+        return getSalarySum() / employees.size();
+    }
+    public Collection<Employee> getSalaryAverage() {
+        for (Map.Entry<Integer, Employee> entry : employees.entrySet()) {
+            if (entry.getValue().getSalary() > getAverageSum()) {
+                employeesAverageSalary.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return this.employeesAverageSalary.values();
+
+
+        //return employees.values().stream().mapToInt(Employee::getId).average().getAsDouble();
     }
 }

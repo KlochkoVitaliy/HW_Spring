@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 public class EmployeeController {
@@ -32,15 +33,15 @@ public Employee createEmployee(@RequestBody EmployeeRequest employeeRequest){
         return this.employeeService.getSalarySum();
 }
 @GetMapping("/employees/salary/min")
-    public int getSalaryMin(){
+    public List<Employee> getSalaryMin(){
         return this.employeeService.getSalaryMin();
 }
     @GetMapping("/employees/salary/max")
-    public int getSalaryMax (){
+    public List<Employee>  getSalaryMax (){
         return this.employeeService.getSalaryMax();
     }
     @GetMapping("/employees/high-salary")
-    public double getSalaryAverage (){
+    public Collection<Employee> getSalaryAverage (){
         return this.employeeService.getSalaryAverage();
     }
 }
