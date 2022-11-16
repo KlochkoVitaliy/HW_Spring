@@ -1,10 +1,12 @@
 package com.skypro.employee.model;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class Employee {
     private static int counter;
     private final int id;
-    private final String firsrName;
-    private final String lastName;
+    private String firsrName;
+    private String lastName;
     private final int department;
     private final int salary;
 
@@ -21,8 +23,22 @@ public class Employee {
         return id;
     }
 
+    public void  setFirsrName(String firsrName) {
+        if (StringUtils.isBlank(firsrName) || !StringUtils.isAlpha(firsrName)) {
+            throw new RuntimeException("400 Bad Request");
+        }
+        this.firsrName = StringUtils.capitalize(firsrName);
+    }
+
     public String getFirsrName() {
         return firsrName;
+    }
+
+    public void  setLastName(String lastName) {
+        if (StringUtils.isBlank(lastName) || !StringUtils.isAlpha(lastName)) {
+            throw new RuntimeException("400 Bad Request");
+        }
+        this.lastName = StringUtils.capitalize(lastName);
     }
 
     public String getLastName() {
@@ -39,12 +55,12 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", firsrName='" + firsrName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", department=" + department +
-                ", salary=" + salary +
-                '}';
+        return
+                "№ п/п: " + id +
+                ", Фамилия - '" + firsrName + '\'' +
+                ", Имя - '" + lastName + '\'' +
+                ", отдел - " + department +
+                ", зарплата - " + salary
+                ;
     }
 }
