@@ -13,6 +13,7 @@ public class Main {
         }
     }
 
+
     public static void main(String[] args) {
 
         Employee ivanovIvan = new Employee("Иванов ", "Иван", 1, 1_000);

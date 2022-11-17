@@ -28,6 +28,7 @@ return this.employeeService.getAllEmployees();
 public Employee createEmployee(@RequestBody EmployeeRequest employeeRequest){
         return this.employeeService.addEmployee(employeeRequest);
 }
+
 @GetMapping("/employees/salary/sum")
     public int getSalarySum (){
         return this.employeeService.getSalarySum();

@@ -12,6 +12,7 @@ public class EmployeeService {
     private final Map<Integer, Employee> employees = new HashMap<>();
     private final Map<Integer,Employee> employeesAverageSalary = new HashMap<>();
 
+
     public Collection<Employee> getAllEmployees() {
         return this.employees.values();
     }
